@@ -54,4 +54,5 @@ Below are the requirements for the script.
 	* any special directions for running code
 * Print out of script
 * Print out of scraped data, formatted to excel (5-10 pages, maximum)
+* Zip file to TRACS including all of the above information.
 
