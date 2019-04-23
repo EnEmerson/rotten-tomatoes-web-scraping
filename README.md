@@ -7,6 +7,8 @@ We've been instructed to scrape some data from the "Opening This Week" page on t
 
 Website: [Rotten Tomatoes "Opening This Week"](https://www.rottentomatoes.com/browse/opening/)
 
+Below are the requirements for the script.
+
 ---
 
 ## For each movie on the opening week page we need to get these things....
@@ -42,5 +44,14 @@ Website: [Rotten Tomatoes "Opening This Week"](https://www.rottentomatoes.com/br
 	* When they reviewed the movie
 	* Where the critic wrote the review (paper/magazine/etc)
 
+---
 
+## What needs to be turned in:
+
+* README inluding:
+	* names of group members
+	* website
+	* any special directions for running code
+* Print out of script
+* Print out of scraped data, formatted to excel (5-10 pages, maximum)
 
