@@ -13,6 +13,10 @@ Below are the requirements for the script.
 
 ## For each movie on the opening week page we need to get these things....
 
+* Number of movies showing that week
+* List of movie names
+* When the movie opened in theaters
+
 ### From the Main Panel:
 
 * Title of the movie
