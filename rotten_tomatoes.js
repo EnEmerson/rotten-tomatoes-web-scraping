@@ -13,7 +13,7 @@ console.log(numOfMovies.toString());
 //getting the urls from the movie panels
 for(var i = 0; i < numOfMovies; i++){
 
-    var curLink = $("div.mb-movie")[i].find("a href");
+    var curLink = $("div.mb-movie>div.movie_info")[i].firstElementChild.href;
     movieLinks.push(curLink);
 }
 
