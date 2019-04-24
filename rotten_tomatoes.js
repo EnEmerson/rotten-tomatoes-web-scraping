@@ -19,3 +19,28 @@ for(var i = 0; i < numOfMovies; i++){
 
 //showing what links were added.
 console.table(movieLinks);
+
+//add the ajax function to get the url
+function getURL(url){
+
+    return $.ajax({
+        type: "GET",
+        url: url,
+        cache: false,
+        async: false
+    }).responseText;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
