@@ -15,6 +15,7 @@ for(var i = 0; i < numOfMovies; i++){
 
     var curLink = $("div.mb-movie>div.movie_info")[i].firstElementChild.href;
     movieLinks.push(curLink);
+	
 }
 
 //showing what links were added.
@@ -31,16 +32,18 @@ function getURL(url){
     }).responseText;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
+//selecting information to get from each individual movie page
+for(var i = 0; i < 5; i++){
+	
+	myData = getURL(movieLinks[i]);
+	
+	lineResult = [
+		$(myData).find("h1.mop-ratings-wrap__title--top").text().trim() + "*",
+		
+		"^"
+	];
+	arrResult.push(lineResult);
+	
+}
+console.table(arrResult);
 
