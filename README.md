@@ -36,6 +36,11 @@ Below are the requirements for the script.
 
 * List of cast members
 
+
+### News and Interviews
+
+* HTML Link
+
 ### From the CRITIC REVIEWS section:
 
 * Go into "View All Critic Reviews" link and retrieve the info for each review
