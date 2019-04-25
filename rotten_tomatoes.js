@@ -39,11 +39,14 @@ for(var i = 0; i < 5; i++){
 	
 	lineResult = [
 		$(myData).find("h1.mop-ratings-wrap__title--top").text().trim() + "*",
-		
+		$(myData).find("p.mop-ratings-wrap__text.mop-ratings-wrap__text--concensus").text().trim() + "*",
 		"^"
 	];
 	arrResult.push(lineResult);
 	
 }
 console.table(arrResult);
+
+
+
 
