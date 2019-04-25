@@ -41,6 +41,7 @@ for(var i = 0; i < 5; i++){
 		$(myData).find("h1.mop-ratings-wrap__title--top").text().trim() + "*",
 		$(myData).find("p.mop-ratings-wrap__text.mop-ratings-wrap__text--concensus").text().trim() + "*",
         $(myData).find("span.mop-ratings-wrap__percentage").text().trim() + "*",
+		"Critic " + $(myData).find("strong.mop-ratings-wrap__text--small").text().trim() + " " + $(myData).find("small.mop-ratings-wrap__text--small").text().trim() + "*",
 		"^"
 	];
 	arrResult.push(lineResult);
