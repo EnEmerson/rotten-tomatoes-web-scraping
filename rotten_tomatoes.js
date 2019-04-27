@@ -33,15 +33,21 @@ function getURL(url){
 }
 
 //selecting information to get from each individual movie page
+//replace "5" with "numOfMovies" when we finish the list of items to retrieve
 for(var i = 0; i < 5; i++){
 	
 	myData = getURL(movieLinks[i]);
 	
+	var tomatoScore = $(myData).find("section.mop-ratings-wrap__row>div:nth-of-type(1)>h1>a>span.mop-ratings-wrap__percentage").text().trim() + "*";
+	if(tomatoScore === "*"){
+		tomatoScore = "No score yet.";
+	}
+	
 	lineResult = [
-		$(myData).find("h1.mop-ratings-wrap__title--top").text().trim() + "*",
-		$(myData).find("p.mop-ratings-wrap__text.mop-ratings-wrap__text--concensus").text().trim() + "*",
-        $(myData).find("span.mop-ratings-wrap__percentage").text().trim() + "*",
-		"Critic " + $(myData).find("strong.mop-ratings-wrap__text--small").text().trim() + " " + $(myData).find("small.mop-ratings-wrap__text--small").text().trim() + "*",
+		$(myData).find("h1.mop-ratings-wrap__title--top").text().trim() + "*", //title of movie
+		$(myData).find("p.mop-ratings-wrap__text.mop-ratings-wrap__text--concensus").text().trim() + "*", //critic consensus
+        "Tomatometer Score: " + tomatoScore + "*", //tomato score
+		
 		"^"
 	];
 	arrResult.push(lineResult);
