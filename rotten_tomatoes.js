@@ -44,10 +44,10 @@ for(var i = 0; i < 5; i++){
 	}
 	
 	lineResult = [
-		$(myData).find("h1.mop-ratings-wrap__title--top").text().trim() + "*", //title of movie
-		$(myData).find("p.mop-ratings-wrap__text.mop-ratings-wrap__text--concensus").text().trim() + "*", //critic consensus
+		"Title: " + $(myData).find("h1.mop-ratings-wrap__title--top").text().trim() + "*",
+		"Critic Consensus: " + $(myData).find("p.mop-ratings-wrap__text.mop-ratings-wrap__text--concensus").text().trim() + "*",
         "Tomatometer Score: " + tomatoScore + "*", //tomato score
-		
+		"Number of Reviews: " + $(myData).find("section.mop-ratings-wrap__row>div:nth-of-type(1)>div>small").text().trim() + "*",
 		"^"
 	];
 	arrResult.push(lineResult);
