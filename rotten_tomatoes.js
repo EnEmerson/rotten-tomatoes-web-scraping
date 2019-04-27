@@ -8,7 +8,7 @@ var lineResult = [];
 var arrResult = [];
 
 //shows how many movies are on the opening week page
-console.log(numOfMovies.toString()); 
+//console.log(numOfMovies.toString()); 
 
 //getting the urls from the movie panels
 for(var i = 0; i < numOfMovies; i++){
@@ -19,7 +19,7 @@ for(var i = 0; i < numOfMovies; i++){
 }
 
 //showing what links were added.
-console.table(movieLinks);
+//console.table(movieLinks);
 
 //add the ajax function to get the url
 function getURL(url){
@@ -38,16 +38,23 @@ for(var i = 0; i < 5; i++){
 	
 	myData = getURL(movieLinks[i]);
 	
-	var tomatoScore = $(myData).find("section.mop-ratings-wrap__row>div:nth-of-type(1)>h1>a>span.mop-ratings-wrap__percentage").text().trim() + "*";
-	if(tomatoScore === "*"){
+	var tomatoScore = $(myData).find("section.mop-ratings-wrap__row>div:nth-of-type(1)>h1>a>span.mop-ratings-wrap__percentage").text().trim();
+	if(tomatoScore === ""){
 		tomatoScore = "No score yet.";
+	}
+	var audienceScore = $(myData).find("section.mop-ratings-wrap__row>div:nth-of-type(2)>h1>a>span.mop-ratings-wrap__percentage").text().trim();
+	audienceScore = audienceScore.replace(/(\r\n|\n|\r)/gm, "");
+	audienceScore = audienceScore.replace('liked it', "").trim();
+	if(audienceScore === ""){
+		audienceScore = "No score yet.";
 	}
 	
 	lineResult = [
-		"Title: " + $(myData).find("h1.mop-ratings-wrap__title--top").text().trim() + "*",
-		"Critic Consensus: " + $(myData).find("p.mop-ratings-wrap__text.mop-ratings-wrap__text--concensus").text().trim() + "*",
-        "Tomatometer Score: " + tomatoScore + "*", //tomato score
-		"Number of Reviews: " + $(myData).find("section.mop-ratings-wrap__row>div:nth-of-type(1)>div>small").text().trim() + "*",
+		$(myData).find("h1.mop-ratings-wrap__title--top").text().trim() + "*",
+		$(myData).find("p.mop-ratings-wrap__text.mop-ratings-wrap__text--concensus").text().trim() + "*",
+        tomatoScore + "*",
+		$(myData).find("section.mop-ratings-wrap__row>div:nth-of-type(1)>div>small").text().trim() + "*",
+		audienceScore + "*",
 		"^"
 	];
 	arrResult.push(lineResult);
