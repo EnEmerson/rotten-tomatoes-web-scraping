@@ -7,6 +7,14 @@ We've been instructed to scrape some data from the "Opening This Week" page on t
 
 Website: [Rotten Tomatoes "Opening This Week"](https://www.rottentomatoes.com/browse/opening/)
 
+### How to run this script:
+
+* Go to the website linked above.
+* Open the console on the webpage, Ctrl + Shift + I.
+* Copy the code from the "rotten_tomatoes.js" file and paste it into the Console of the rotten tomatoes page.
+* Press enter and wait a bit for the AJAX calls to complete.
+* The tabled data should appear on the console with all of the information scraped from the movies.
+
 Below are the requirements for the script.
 
 ---
