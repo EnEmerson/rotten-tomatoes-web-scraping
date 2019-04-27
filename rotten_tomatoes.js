@@ -55,6 +55,7 @@ for(var i = 0; i < 5; i++){
         tomatoScore + "*",
 		$(myData).find("section.mop-ratings-wrap__row>div:nth-of-type(1)>div>small").text().trim() + "*",
 		audienceScore + "*",
+		$(myData).find("section.mop-ratings-wrap__row>div:nth-of-type(2)>div>small").text().trim() + "*",
 		"^"
 	];
 	arrResult.push(lineResult);
