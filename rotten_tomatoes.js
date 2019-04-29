@@ -38,25 +38,49 @@ for(var i = 0; i < 5; i++){
 	
 	myData = getURL(movieLinks[i]);
 	
+	var title = $(myData).find("h1.mop-ratings-wrap__title--top").text().trim();
+	var concensus = $(myData).find("p.mop-ratings-wrap__text.mop-ratings-wrap__text--concensus").text().trim();
+	var numOfCritics = $(myData).find("section.mop-ratings-wrap__row>div:nth-of-type(1)>div>small").text().trim();
+	var userRating = $(myData).find("section.mop-ratings-wrap__row>div:nth-of-type(2)>div>small").text().trim();
+	var synopsis = $(myData).find("div#movieSynopsis").text().trim();
+	
 	var tomatoScore = $(myData).find("section.mop-ratings-wrap__row>div:nth-of-type(1)>h1>a>span.mop-ratings-wrap__percentage").text().trim();
 	if(tomatoScore === ""){
-		tomatoScore = "No score yet.";
+		tomatoScore = "No tomato score yet.";
 	}
+	
 	var audienceScore = $(myData).find("section.mop-ratings-wrap__row>div:nth-of-type(2)>h1>a>span.mop-ratings-wrap__percentage").text().trim();
 	audienceScore = audienceScore.replace(/(\r\n|\n|\r)/gm, "");
 	audienceScore = audienceScore.replace('liked it', "").trim();
 	if(audienceScore === ""){
-		audienceScore = "No score yet.";
+		audienceScore = "No audience score yet.";
 	}
 	
+	var rating, genre, director, writer;
+	
+	rating = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(1)>div.meta-label.subtle").text().trim() + " " +
+	$(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(1)>div.meta-value").text().trim();
+	rating = rating.replace(/(\r\n|\n|\r)/gm, "");
+
+	genre = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(2)>div.meta-label.subtle").text().trim() + " " +
+	$(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(2)>div.meta-value").text().trim();
+	genre = genre.replace(/(\r\n|\n|\r)/gm, "");
+	
+	director = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(3)>div.meta-label.subtle").text().trim() + " " +
+	$(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(3)>div.meta-value").text().trim();
+	director = director.replace(/(\r\n|\n|\r)/gm, "");
+	
+	writer = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(4)>div.meta-label.subtle").text().trim() + " " + 
+	$(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(4)>div.meta-value").text().trim();
+	writer = writer.replace(/(\r\n|\n|\r)/gm, "");
+
+	
 	lineResult = [
-		$(myData).find("h1.mop-ratings-wrap__title--top").text().trim() + "*",
-		$(myData).find("p.mop-ratings-wrap__text.mop-ratings-wrap__text--concensus").text().trim() + "*",
-        tomatoScore + "*",
-		$(myData).find("section.mop-ratings-wrap__row>div:nth-of-type(1)>div>small").text().trim() + "*",
-		audienceScore + "*",
-		$(myData).find("section.mop-ratings-wrap__row>div:nth-of-type(2)>div>small").text().trim() + "*",
-		$(myData).find("div#movieSynopsis").text().trim() + "*",
+	//Main Panel
+		title + "*", concensus+ "*", tomatoScore + "*", numOfCritics + "*", audienceScore + "*", userRating + "*",
+	//Movie Info Panel
+		synopsis + "*",rating + "*", genre + "*", director + "*", writer + "*",
+		
 		"^"
 	];
 	arrResult.push(lineResult);
