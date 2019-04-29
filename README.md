@@ -23,16 +23,16 @@ Below are the requirements for the script.
 
 ### From the Main Panel:
 
-* Title of the movie
-* Critic's consensus about the film
-* Tomatometer score
-* Number of reviews
-* Audience score
-* User rating
+* Title of the movie - complete
+* Critic's consensus about the film - complete
+* Tomatometer score - complete
+* Number of reviews - complete
+* Audience score - complete
+* User rating - complete
 
 ### From the MOVIE INFO section:
 
-* Movie background/synopsis
+* Movie background/synopsis - complete
 * Rating (G/PG/PG-13/R)
 * Genre
 * Director
@@ -43,7 +43,6 @@ Below are the requirements for the script.
 ### From the CAST section:
 
 * List of cast members
-
 
 ### News and Interviews
 
