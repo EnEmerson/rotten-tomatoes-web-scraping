@@ -40,17 +40,19 @@ for(var i = 0; i < 5; i++){
 	myData = getURL(movieLinks[i]);
 	
 	//Main Panel
-	var title = $(myData).find("h1.mop-ratings-wrap__title--top").text().trim();
-	var concensus = $(myData).find("p.mop-ratings-wrap__text.mop-ratings-wrap__text--concensus").text().trim();
-	var numOfCritics = $(myData).find("section.mop-ratings-wrap__row>div:nth-of-type(1)>div>small").text().trim();
-	var userRating = $(myData).find("section.mop-ratings-wrap__row>div:nth-of-type(2)>div>small").text().trim();
+	var title, concensus, numOfCritics, userRating, tomatoScore, audienceScore;
 	
-	var tomatoScore = $(myData).find("section.mop-ratings-wrap__row>div:nth-of-type(1)>h1>a>span.mop-ratings-wrap__percentage").text().trim();
+	title = $(myData).find("h1.mop-ratings-wrap__title--top").text().trim();
+	concensus = $(myData).find("p.mop-ratings-wrap__text.mop-ratings-wrap__text--concensus").text().trim();
+	numOfCritics = $(myData).find("section.mop-ratings-wrap__row>div:nth-of-type(1)>div>small").text().trim();
+	userRating = $(myData).find("section.mop-ratings-wrap__row>div:nth-of-type(2)>div>small").text().trim();
+	
+	tomatoScore = $(myData).find("section.mop-ratings-wrap__row>div:nth-of-type(1)>h1>a>span.mop-ratings-wrap__percentage").text().trim();
 	if(tomatoScore === ""){
 		tomatoScore = "No tomato score yet.";
 	}
 	
-	var audienceScore = $(myData).find("section.mop-ratings-wrap__row>div:nth-of-type(2)>h1>a>span.mop-ratings-wrap__percentage").text().trim();
+	audienceScore = $(myData).find("section.mop-ratings-wrap__row>div:nth-of-type(2)>h1>a>span.mop-ratings-wrap__percentage").text().trim();
 	audienceScore = audienceScore.replace(/(\r\n|\n|\r)/gm, "");
 	audienceScore = audienceScore.replace('liked it', "").trim();
 	if(audienceScore === ""){
@@ -59,43 +61,40 @@ for(var i = 0; i < 5; i++){
 	
 	//Movie Info Panel
 	var synopsis = $(myData).find("div#movieSynopsis").text().trim();
-
-	var rating = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(1)>div.meta-label.subtle").text().trim() + " " +
-	$(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(1)>div.meta-value").text().trim();
-	rating = rating.replace(/(\r\n|\n|\r)/gm, "");
-
-	var genre = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(2)>div.meta-label.subtle").text().trim() + " " +
-	$(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(2)>div.meta-value").text().trim();
-	genre = genre.replace(/(\r\n|\n|\r)/gm, "");
 	
-	var director = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(3)>div.meta-label.subtle").text().trim() + " " +
-	$(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(3)>div.meta-value").text().trim();
-	director = director.replace(/(\r\n|\n|\r)/gm, "");
-	
-	var writer = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(4)>div.meta-label.subtle").text().trim() + " " + 
-	$(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(4)>div.meta-value").text().trim();
-	writer = writer.replace(/(\r\n|\n|\r)/gm, "");
-	
-	var inTheater = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(5)>div.meta-label.subtle").text().trim() + " " + 
-	$(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(5)>div.meta-value").text().trim();
-	inTheater = inTheater.replace(/(\r\n|\n|\r)/gm, "");
-	
-	//Need to check the content of these because the order changes sometimes
-	
-    var streamDate, runTime, studio;
+    var rating, genre, director, writer, inTheaters, streamDate, runTime, studio;
     
-    for(var i = 5; i < movieDetails; i++){
+    for(var i = 0; i < movieDetails; i++){
+		
         var detail = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type("+i+")>div.meta-label.subtle").text().trim();
-        
+		var value = detail + " " + $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type("+i+")>div.meta-value").text().trim();
+		value = value.replace(/(\r\n|\n|\r)/gm, "").text().trim();
+        detail = detail.replace(/(\r\n|\n|\r)/gm, "").text().trim();
+		
         switch(detail){
-            case "On Disc/Streaming":
-                streamDate = detail + " " + $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type("+i+")>div.meta-value").text().trim();
+			case detail.includes("Rating"):
+				rating = detail + " " + value;
+				break;
+			case detail.includes("Genre"):
+				genre = detail + " " + value;
+				break;
+			case detail.includes("Directed"):
+				director = detail + " " + value;
+				break;
+			case detail.includes("Written"):
+				writer = detail + " " + value;
+				break;
+			case detail.includes("Theater"):
+				inTheaters = detail + " " + value;
+				break;
+            case detail.includes("Stream"):
+                streamDate = detail + " " + value;
                 break;
-            case "Runtime":
-                runTime = detail + " " + $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type("+i+")>div.meta-value").text().trim();
+            case detail.includes("Runtime"):
+                runTime = detail + " " + value;
                 break;
-            case "Studio":
-                studio = detail + " " + $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type("+i+")>div.meta-value").text().trim();
+            case detail.includes("Studio"):
+                studio = detail + " " + value;
                 break;
         }
         
