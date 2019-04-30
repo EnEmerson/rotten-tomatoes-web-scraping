@@ -74,13 +74,30 @@ for(var i = 0; i < 5; i++){
 	var writer = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(4)>div.meta-label.subtle").text().trim() + " " + 
 	$(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(4)>div.meta-value").text().trim();
 	writer = writer.replace(/(\r\n|\n|\r)/gm, "");
+	
+	var inTheater = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(5)>div.meta-label.subtle").text().trim() + " " + 
+	$(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(5)>div.meta-value").text().trim();
+	inTheater = inTheater.replace(/(\r\n|\n|\r)/gm, "");
+	
+	//Need to check the content of these because the order changes sometimes
+	
+	var runTime = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(6)>div.meta-label.subtle").text().trim()
+	
+	if(runTime.includes("Runtime")){
+		runTime += " " + $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(6)>div.meta-value").text().trim();
+		runTime = runTime.replace(/(\r\n|\n|\r)/gm, "");
+	}
+	
+	var studio = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(7)>div.meta-label.subtle").text().trim() + " " + 
+	$(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(7)>div.meta-value").text().trim();
+	studio = studio.replace(/(\r\n|\n|\r)/gm, "");
 
 	//adding everything to the lineResult which will be tabled at the end.
 	lineResult = [
 	//Main Panel
-		title + "*", concensus+ "*", tomatoScore + "*", numOfCritics + "*", audienceScore + "*", userRating + "*",
+	/*	title + "*", concensus+ "*", tomatoScore + "*", numOfCritics + "*", audienceScore + "*", userRating + "*",*/
 	//Movie Info Panel
-		synopsis + "*",rating + "*", genre + "*", director + "*", writer + "*",
+		synopsis + "*",rating + "*", genre + "*", director + "*", writer + "*", inTheater + "*", runTime + "*", studio + "*",
 		
 		"^"
 	];
