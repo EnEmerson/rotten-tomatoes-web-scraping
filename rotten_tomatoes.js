@@ -38,11 +38,11 @@ for(var i = 0; i < 5; i++){
 	
 	myData = getURL(movieLinks[i]);
 	
+	//Main Panel
 	var title = $(myData).find("h1.mop-ratings-wrap__title--top").text().trim();
 	var concensus = $(myData).find("p.mop-ratings-wrap__text.mop-ratings-wrap__text--concensus").text().trim();
 	var numOfCritics = $(myData).find("section.mop-ratings-wrap__row>div:nth-of-type(1)>div>small").text().trim();
 	var userRating = $(myData).find("section.mop-ratings-wrap__row>div:nth-of-type(2)>div>small").text().trim();
-	var synopsis = $(myData).find("div#movieSynopsis").text().trim();
 	
 	var tomatoScore = $(myData).find("section.mop-ratings-wrap__row>div:nth-of-type(1)>h1>a>span.mop-ratings-wrap__percentage").text().trim();
 	if(tomatoScore === ""){
@@ -56,25 +56,26 @@ for(var i = 0; i < 5; i++){
 		audienceScore = "No audience score yet.";
 	}
 	
-	var rating, genre, director, writer;
-	
-	rating = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(1)>div.meta-label.subtle").text().trim() + " " +
+	//Movie Info Panel
+	var synopsis = $(myData).find("div#movieSynopsis").text().trim();
+
+	var rating = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(1)>div.meta-label.subtle").text().trim() + " " +
 	$(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(1)>div.meta-value").text().trim();
 	rating = rating.replace(/(\r\n|\n|\r)/gm, "");
 
-	genre = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(2)>div.meta-label.subtle").text().trim() + " " +
+	var genre = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(2)>div.meta-label.subtle").text().trim() + " " +
 	$(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(2)>div.meta-value").text().trim();
 	genre = genre.replace(/(\r\n|\n|\r)/gm, "");
 	
-	director = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(3)>div.meta-label.subtle").text().trim() + " " +
+	var director = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(3)>div.meta-label.subtle").text().trim() + " " +
 	$(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(3)>div.meta-value").text().trim();
 	director = director.replace(/(\r\n|\n|\r)/gm, "");
 	
-	writer = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(4)>div.meta-label.subtle").text().trim() + " " + 
+	var writer = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(4)>div.meta-label.subtle").text().trim() + " " + 
 	$(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(4)>div.meta-value").text().trim();
 	writer = writer.replace(/(\r\n|\n|\r)/gm, "");
 
-	
+	//adding everything to the lineResult which will be tabled at the end.
 	lineResult = [
 	//Main Panel
 		title + "*", concensus+ "*", tomatoScore + "*", numOfCritics + "*", audienceScore + "*", userRating + "*",
