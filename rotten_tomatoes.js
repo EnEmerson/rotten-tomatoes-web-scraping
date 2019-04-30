@@ -6,7 +6,6 @@ var movieLinks = [];
 var myData;
 var lineResult = [];
 var arrResult = [];
-var movieDetails = $("li.meta-row.clearfix").length;
 
 //shows how many movies are on the opening week page
 //console.log(numOfMovies.toString()); 
@@ -38,7 +37,10 @@ function getURL(url){
 for(var i = 0; i < 5; i++){
 	
 	myData = getURL(movieLinks[i]);
-	
+	//$(myData).find("li.meta-row.clearfix").length;
+	var movieDetails = 0;
+	//TO DO: loop through list elements in the unordered list to get number of movie details for the for loop
+
 	//Main Panel
 	var title, concensus, numOfCritics, userRating, tomatoScore, audienceScore;
 	
@@ -66,37 +68,40 @@ for(var i = 0; i < 5; i++){
     
     for(var i = 0; i < movieDetails; i++){
 		
-        var detail = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type("+i+")>div.meta-label.subtle").text().trim();
-		var value = detail + " " + $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type("+i+")>div.meta-value").text().trim();
-		value = value.replace(/(\r\n|\n|\r)/gm, "").text().trim();
-        detail = detail.replace(/(\r\n|\n|\r)/gm, "").text().trim();
+        var movieDetail = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type("+i+")>div.meta-label.subtle").text().trim();
+		var movieValue = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type("+i+")>div.meta-value").text().trim();
+		movieDetail = movieDetail.replace(/(\r\n|\n|\r)/gm, "");
+		movieValue = movieValue.replace(/(\r\n|\n|\r)/gm, "");
+		movieDetail = movieDetail.trim();
+		movieValue = movieValue.trim();
 		
-        switch(detail){
+        switch(movieDetail){
 			case "Rating:":
-				rating = value;
+				rating = movieValue;
 				break;
 			case "Genre:":
-				genre = value;
+				genre = movieValue;
 				break;
 			case "Directed By:":
-				director = value;
+				director = movieValue;
 				break;
 			case "Written By:":
-				writer = value;
+				writer = movieValue;
 				break;
 			case "In Theaters:":
-				inTheaters = value;
+				inTheaters = movieValue;
 				break;
             case "On Disk/Streaming:":
-                streamDate = value;
+                streamDate = movieValue;
                 break;
             case "Runtime:":
-                runTime = value;
+                runTime = movieValue;
                 break;
             case "Studio:":
-                studio = value;
+                studio = movieValue;
                 break;
         }
+		
 		if(rating===""){rating = "No rating yet.";}
 		if(genre===""){genre = "No genre assigned.";}
 		if(director===""){director = "No director found.";}
@@ -112,7 +117,7 @@ for(var i = 0; i < 5; i++){
 	//Main Panel
 	/*	title + "*", concensus+ "*", tomatoScore + "*", numOfCritics + "*", audienceScore + "*", userRating + "*",*/
 	//Movie Info Panel
-		synopsis + "*",rating + "*", genre + "*", director + "*", writer + "*", inTheater + "*", runTime + "*", studio + "*",
+		synopsis + "*", rating + "*", genre + "*", director + "*", writer + "*", inTheaters + "*", runTime + "*", studio + "*",
 		
 		"^"
 	];
