@@ -38,6 +38,8 @@ Below are the requirements for the script.
 * Director - **complete**
 * Writer - **complete**
 * Opening date
+* Streaming date
+* Runtime
 * Studio produced by
 
 ### From the CAST section:
