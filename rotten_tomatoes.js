@@ -6,6 +6,7 @@ var movieLinks = [];
 var myData;
 var lineResult = [];
 var arrResult = [];
+var movieDetails = $("li.meta-row.clearfix").length;
 
 //shows how many movies are on the opening week page
 //console.log(numOfMovies.toString()); 
@@ -81,16 +82,38 @@ for(var i = 0; i < 5; i++){
 	
 	//Need to check the content of these because the order changes sometimes
 	
-	var runTime = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(6)>div.meta-label.subtle").text().trim()
+    var streamDate, runTime, studio;
+    
+    for(var i = 5; i < movieDetails; i++){
+        var detail = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type("+i+")>div.meta-label.subtle").text().trim();
+        
+        switch(detail){
+            case "On Disc/Streaming":
+                streamDate = detail + " " + $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type("+i+")>div.meta-value").text().trim();
+                break;
+            case "Runtime":
+                runTime = detail + " " + $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type("+i+")>div.meta-value").text().trim();
+                break;
+            case "Studio":
+                studio = detail + " " + $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type("+i+")>div.meta-value").text().trim();
+                break;
+        }
+        
+        
+        runTime = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(6)>div.meta-label.subtle").text().trim()
 	
 	if(runTime.includes("Runtime")){
 		runTime += " " + $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(6)>div.meta-value").text().trim();
 		runTime = runTime.replace(/(\r\n|\n|\r)/gm, "");
-	}
+	} else {
+        runTime = "no runtime found";
+    }
+    
 	
-	var studio = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(7)>div.meta-label.subtle").text().trim() + " " + 
+	studio = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type("+ movieDetails +")>div.meta-label.subtle").text().trim() + " " + 
 	$(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(7)>div.meta-value").text().trim();
 	studio = studio.replace(/(\r\n|\n|\r)/gm, "");
+    }
 
 	//adding everything to the lineResult which will be tabled at the end.
 	lineResult = [
