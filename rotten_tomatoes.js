@@ -72,48 +72,41 @@ for(var i = 0; i < 5; i++){
         detail = detail.replace(/(\r\n|\n|\r)/gm, "").text().trim();
 		
         switch(detail){
-			case detail.includes("Rating"):
-				rating = detail + " " + value;
+			case "Rating:":
+				rating = value;
 				break;
-			case detail.includes("Genre"):
-				genre = detail + " " + value;
+			case "Genre:":
+				genre = value;
 				break;
-			case detail.includes("Directed"):
-				director = detail + " " + value;
+			case "Directed By:":
+				director = value;
 				break;
-			case detail.includes("Written"):
-				writer = detail + " " + value;
+			case "Written By:":
+				writer = value;
 				break;
-			case detail.includes("Theater"):
-				inTheaters = detail + " " + value;
+			case "In Theaters:":
+				inTheaters = value;
 				break;
-            case detail.includes("Stream"):
-                streamDate = detail + " " + value;
+            case "On Disk/Streaming:":
+                streamDate = value;
                 break;
-            case detail.includes("Runtime"):
-                runTime = detail + " " + value;
+            case "Runtime:":
+                runTime = value;
                 break;
-            case detail.includes("Studio"):
-                studio = detail + " " + value;
+            case "Studio:":
+                studio = value;
                 break;
         }
-        
-        
-        runTime = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(6)>div.meta-label.subtle").text().trim()
-	
-	if(runTime.includes("Runtime")){
-		runTime += " " + $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(6)>div.meta-value").text().trim();
-		runTime = runTime.replace(/(\r\n|\n|\r)/gm, "");
-	} else {
-        runTime = "no runtime found";
-    }
+		if(rating===""){rating = "No rating yet.";}
+		if(genre===""){genre = "No genre assigned.";}
+		if(director===""){director = "No director found.";}
+		if(writer===""){writer = "No writer found.";}
+		if(inTheaters===""){inTheaters = "No release date found.";}
+		if(streamDate===""){streamDate = "No on disk/streaming found.";}
+		if(runTime===""){runTime = "No runtime found.";}
+		if(studio===""){studio = "No studio found.";}
     
-	
-	studio = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type("+ movieDetails +")>div.meta-label.subtle").text().trim() + " " + 
-	$(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type(7)>div.meta-value").text().trim();
-	studio = studio.replace(/(\r\n|\n|\r)/gm, "");
-    }
-
+	}
 	//adding everything to the lineResult which will be tabled at the end.
 	lineResult = [
 	//Main Panel
