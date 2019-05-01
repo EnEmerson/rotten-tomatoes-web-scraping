@@ -33,14 +33,14 @@ Below are the requirements for the script.
 ### From the MOVIE INFO section:
 
 * ~~Background/synopsis~~
-* Rating (G/PG/PG-13/R)
-* Genre
-* Director
-* Writer
-* Opening date
-* Streaming date
-* Runtime
-* Studio
+* Rating (G/PG/PG-13/R) - in progress
+* Genre - in progress
+* Director - in progress
+* Writer - in progress
+* Opening date - in progress
+* Streaming date - in progress
+* Runtime - in progress
+* Studio - in progress
 
 ### From the CAST section:
 
