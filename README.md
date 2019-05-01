@@ -46,14 +46,14 @@ Below are the requirements for the script.
 
 * List of cast members
 
-### News and Interviews
+### From the NEWS AND INTERVIEWS section:
 
-* HTML Link
+* List of HTML Links to each article
 
 ### From the CRITIC REVIEWS section:
 
 * Go into "View All Critic Reviews" link and retrieve the info for each review
-	* Small review excerpt
+	* Small excerpt of the review 
 	* Name of critic
 	* When they reviewed the movie
 	* Where the critic wrote the review (paper/magazine/etc)
