@@ -39,7 +39,7 @@ for(var i = 0; i < 5; i++){
 	myData = getURL(movieLinks[i]);
 	
 	//Get number of movie details from movie info panel
-	var movieDetails = $(myData).find("div.panel-body.content_body>ul.content-meta.info>li.meta-row.clearfix").size();
+	var numMovieDetails = $(myData).find("div.panel-body.content_body>ul.content-meta.info>li.meta-row.clearfix").length;
 	
 	//testing if the correct number of details is retrieved
 	//console.log(movieDetails);
@@ -70,50 +70,53 @@ for(var i = 0; i < 5; i++){
     var rating = "", genre = "", director = "", writer = "", inTheaters = "", streamDate = "", runTime = "", studio = "";
     
 	//Loop through list elements in the ul of movie details and assign values
-    for(var i = 0; i < movieDetails; i++){
+    for(var j = 0; j <= numMovieDetails; j++){
 		
-        var movieDetail = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type("+i+")>div.meta-label.subtle").text().trim();
-		var movieValue = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type("+i+")>div.meta-value").text().trim();
+        var movieDetail = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type("+j+")>div.meta-label.subtle").text().trim();
+		var movieValue = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type("+j+")>div.meta-value").text().trim();
 		movieDetail = movieDetail.replace(/(\r\n|\n|\r)/gm, "");
 		movieValue = movieValue.replace(/(\r\n|\n|\r)/gm, "");
 		movieDetail = movieDetail.trim();
 		movieValue = movieValue.trim();
-		
-        switch(movieDetail){
-			case "Rating:":
+        
+        //console.log(movieDetail, movieValue);
+        
+        switch(true){
+            case movieDetail.includes("Rating"):
 				rating = movieValue;
 				break;
-			case "Genre:":
+			case movieDetail.includes("Genre"):
 				genre = movieValue;
 				break;
-			case "Directed By:":
+			case movieDetail.includes("Direct"):
 				director = movieValue;
 				break;
-			case "Written By:":
+			case movieDetail.includes("Written"):
 				writer = movieValue;
 				break;
-			case "In Theaters:":
+			case movieDetail.includes("Theater"):
 				inTheaters = movieValue;
 				break;
-            case "On Disk/Streaming:":
+            case movieDetail.includes("Streaming"):
                 streamDate = movieValue;
                 break;
-            case "Runtime:":
+            case movieDetail.includes("Runtime"):
                 runTime = movieValue;
                 break;
-            case "Studio:":
+            case movieDetail.includes("Studio"):
                 studio = movieValue;
                 break;
         }
 		
-		if(rating===""){rating = "No rating yet.";}
-		if(genre===""){genre = "No genre assigned.";}
-		if(director===""){director = "No director found.";}
-		if(writer===""){writer = "No writer found.";}
-		if(inTheaters===""){inTheaters = "No release date found.";}
-		if(streamDate===""){streamDate = "No streaming date found.";}
-		if(runTime===""){runTime = "No runtime found.";}
-		if(studio===""){studio = "No production studio found.";}
+		if(!rating){rating = "No rating yet.";}
+		if(!genre){genre = "No genre assigned.";}
+		if(!director){director = "No director found.";}
+		if(!writer){writer = "No writer found.";}
+		if(!inTheaters){inTheaters = "No release date found.";}
+		if(!streamDate){streamDate = "No streaming date found.";}
+		if(!runTime){runTime = "No runtime found.";}
+		if(!studio){studio = "No production studio found.";}
+        
     
 	}
 	//adding everything to the lineResult which will be tabled at the end.
