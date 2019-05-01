@@ -37,17 +37,20 @@ function getURL(url){
 for(var i = 0; i < 5; i++){
 	
 	myData = getURL(movieLinks[i]);
-	//$(myData).find("li.meta-row.clearfix").length;
-	var movieDetails = 0;
-	//TO DO: loop through list elements in the unordered list to get number of movie details for the for loop
+	
+	//Get number of movie details from movie info panel
+	var movieDetails = $(myData).find("div.panel-body.content_body>ul.content-meta.info>li.meta-row.clearfix").size();
+	
+	//testing if the correct number of details is retrieved
+	//console.log(movieDetails);
 
 	//Main Panel
-	var title, concensus, numOfCritics, userRating, tomatoScore, audienceScore;
+	var title, concensus, numOfCritics, userRatings, tomatoScore, audienceScore;
 	
 	title = $(myData).find("h1.mop-ratings-wrap__title--top").text().trim();
 	concensus = $(myData).find("p.mop-ratings-wrap__text.mop-ratings-wrap__text--concensus").text().trim();
 	numOfCritics = $(myData).find("section.mop-ratings-wrap__row>div:nth-of-type(1)>div>small").text().trim();
-	userRating = $(myData).find("section.mop-ratings-wrap__row>div:nth-of-type(2)>div>small").text().trim();
+	userRatings = $(myData).find("section.mop-ratings-wrap__row>div:nth-of-type(2)>div>small").text().trim();
 	
 	tomatoScore = $(myData).find("section.mop-ratings-wrap__row>div:nth-of-type(1)>h1>a>span.mop-ratings-wrap__percentage").text().trim();
 	if(tomatoScore === ""){
@@ -64,8 +67,9 @@ for(var i = 0; i < 5; i++){
 	//Movie Info Panel
 	var synopsis = $(myData).find("div#movieSynopsis").text().trim();
 	
-    var rating, genre, director, writer, inTheaters, streamDate, runTime, studio;
+    var rating = "", genre = "", director = "", writer = "", inTheaters = "", streamDate = "", runTime = "", studio = "";
     
+	//Loop through list elements in the ul of movie details and assign values
     for(var i = 0; i < movieDetails; i++){
 		
         var movieDetail = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type("+i+")>div.meta-label.subtle").text().trim();
@@ -107,22 +111,22 @@ for(var i = 0; i < 5; i++){
 		if(director===""){director = "No director found.";}
 		if(writer===""){writer = "No writer found.";}
 		if(inTheaters===""){inTheaters = "No release date found.";}
-		if(streamDate===""){streamDate = "No on disk/streaming found.";}
+		if(streamDate===""){streamDate = "No streaming date found.";}
 		if(runTime===""){runTime = "No runtime found.";}
-		if(studio===""){studio = "No studio found.";}
+		if(studio===""){studio = "No production studio found.";}
     
 	}
 	//adding everything to the lineResult which will be tabled at the end.
 	lineResult = [
 	//Main Panel
-	/*	title + "*", concensus+ "*", tomatoScore + "*", numOfCritics + "*", audienceScore + "*", userRating + "*",*/
+		/*title + "*", concensus+ "*", tomatoScore + "*", numOfCritics + "*", audienceScore + "*", userRatings + "*",*/
 	//Movie Info Panel
-		synopsis + "*", rating + "*", genre + "*", director + "*", writer + "*", inTheaters + "*", runTime + "*", studio + "*",
+		synopsis + "*", rating + "*", genre + "*", director + "*", writer + "*", inTheaters + "*", streamDate + "*", runTime + "*", studio + "*",
 		
 		"^"
 	];
 	arrResult.push(lineResult);
-	
+
 }
 console.table(arrResult);
 
