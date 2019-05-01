@@ -119,10 +119,16 @@ for(var i = 0; i < 5; i++){
         
     
 	}
+	
+	//Cast Panel
+	
+	
+	
+	
 	//adding everything to the lineResult which will be tabled at the end.
 	lineResult = [
 	//Main Panel
-		/*title + "*", concensus+ "*", tomatoScore + "*", numOfCritics + "*", audienceScore + "*", userRatings + "*",*/
+		title + "*", concensus+ "*", tomatoScore + "*", numOfCritics + "*", audienceScore + "*", userRatings + "*",
 	//Movie Info Panel
 		synopsis + "*", rating + "*", genre + "*", director + "*", writer + "*", inTheaters + "*", streamDate + "*", runTime + "*", studio + "*",
 		
