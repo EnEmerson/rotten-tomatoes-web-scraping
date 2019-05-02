@@ -1,7 +1,7 @@
 //web scraping project for CIS 3360, rotten tomatoes opening week page.
 //Baxter Irwin and En Emerson
-
-let numOfMovies = $('div.mb-movie').length
+(() => {
+	let numOfMovies = $('div.mb-movie').length
 let movieLinks = []
 let myData
 let lineResult = []
@@ -11,7 +11,7 @@ let arrResult = []
 //console.log(numOfMovies.toString()) 
 
 //getting the urls from the movie panels
-for(let i = 0; i < numOfMovies i++){
+for(let i = 0; i < numOfMovies; i++){
 
     let curLink = $('div.mb-movie>div.movie_info')[i].firstElementChild.href
     movieLinks.push(curLink)
@@ -32,9 +32,16 @@ function getURL(url){
     }).responseText
 }
 
+//function to make finding and fomratting data with jQuery slightly easier
+function find(selector){
+	
+	return $(myData).find(selector).text().trim();
+	
+}
+
 //selecting information to get from each individual movie page
 //replace '5' with 'numOfMovies' when we finish the list of items to retrieve
-for(let i = 0; i < 5 i++){
+for(let i = 0; i < 5; i++){
 	
 	myData = getURL(movieLinks[i])
 	
@@ -55,7 +62,7 @@ for(let i = 0; i < 5 i++){
 			Opening_Date : 'No opening date',
 			Streaming_Date : 'No streaming date',
 			Runtime : 'No runtime',
-			Studio : 'No studio'
+			Studio : 'No studio',
 		//Cast Members Panel
 			Cast_Members : [],
 		//News Panel
@@ -73,7 +80,7 @@ for(let i = 0; i < 5 i++){
 	//Main Panel
 	let title, concensus, numOfCritics, userRatings, tomatoScore, audienceScore
 	
-	title = $(myData).find('h1.mop-ratings-wrap__title--top').text().trim()
+	title = find('h1.mop-ratings-wrap__title--top')
 	concensus = $(myData).find('p.mop-ratings-wrap__text.mop-ratings-wrap__text--concensus').text().trim()
 	numOfCritics = $(myData).find('section.mop-ratings-wrap__row>div:nth-of-type(1)>div>small').text().trim()
 	userRatings = $(myData).find('section.mop-ratings-wrap__row>div:nth-of-type(2)>div>small').text().trim()
@@ -96,7 +103,7 @@ for(let i = 0; i < 5 i++){
     let rating = '', genre = '', director = '', writer = '', inTheaters = '', streamDate = '', runTime = '', studio = ''
     
 	//Loop through list elements in the ul of movie details and assign values
-    for(let j = 1; j <= numMovieDetails j++){
+    for(let j = 1; j <= numMovieDetails; j++){
 		
         let movieDetail = $(myData).find('ul.content-meta.info>li.meta-row.clearfix:nth-of-type('+j+')>div.meta-label.subtle').text().trim()
 		let movieValue = $(myData).find('ul.content-meta.info>li.meta-row.clearfix:nth-of-type('+j+')>div.meta-value').text().trim()
@@ -157,7 +164,7 @@ for(let i = 0; i < 5 i++){
 	//console.log(numOfCastMembers)
 	
 	//begin cast member scraping
-	for(let k = 1; k <= numOfCastMembers k++){
+	for(let k = 1; k <= numOfCastMembers; k++){
 		
 		let curCastMember = $(myData).find('div.cast-item.media.inlineBlock:nth-of-type('+k+')>div.media-body>a>span').text().trim()
 		
@@ -191,6 +198,9 @@ for(let i = 0; i < 5 i++){
 
 }
 console.table(arrResult)
+
+	
+})()
 
 
 
