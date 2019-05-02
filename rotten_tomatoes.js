@@ -1,19 +1,19 @@
 //web scraping project for CIS 3360, rotten tomatoes opening week page.
 //Baxter Irwin and En Emerson
 
-var numOfMovies = $("div.mb-movie").length;
-var movieLinks = [];
-var myData;
-var lineResult = [];
-var arrResult = [];
+let numOfMovies = $("div.mb-movie").length;
+let movieLinks = [];
+let myData;
+let lineResult = [];
+let arrResult = [];
 
 //shows how many movies are on the opening week page
 //console.log(numOfMovies.toString()); 
 
 //getting the urls from the movie panels
-for(var i = 0; i < numOfMovies; i++){
+for(let i = 0; i < numOfMovies; i++){
 
-    var curLink = $("div.mb-movie>div.movie_info")[i].firstElementChild.href;
+    let curLink = $("div.mb-movie>div.movie_info")[i].firstElementChild.href;
     movieLinks.push(curLink);
 	
 }
@@ -34,18 +34,18 @@ function getURL(url){
 
 //selecting information to get from each individual movie page
 //replace "5" with "numOfMovies" when we finish the list of items to retrieve
-for(var i = 0; i < 5; i++){
+for(let i = 0; i < 5; i++){
 	
 	myData = getURL(movieLinks[i]);
 	
 	//Get number of movie details from movie info panel
-	var numMovieDetails = $(myData).find("div.panel-body.content_body>ul.content-meta.info>li.meta-row.clearfix").length;
+	let numMovieDetails = $(myData).find("div.panel-body.content_body>ul.content-meta.info>li.meta-row.clearfix").length;
 	
 	//testing if the correct number of details is retrieved
 	//console.log(movieDetails);
 
 	//Main Panel
-	var title, concensus, numOfCritics, userRatings, tomatoScore, audienceScore;
+	let title, concensus, numOfCritics, userRatings, tomatoScore, audienceScore;
 	
 	title = $(myData).find("h1.mop-ratings-wrap__title--top").text().trim();
 	concensus = $(myData).find("p.mop-ratings-wrap__text.mop-ratings-wrap__text--concensus").text().trim();
@@ -65,15 +65,15 @@ for(var i = 0; i < 5; i++){
 	}
 	
 	//Movie Info Panel
-	var synopsis = $(myData).find("div#movieSynopsis").text().trim();
+	let synopsis = $(myData).find("div#movieSynopsis").text().trim();
 	
-    var rating = "", genre = "", director = "", writer = "", inTheaters = "", streamDate = "", runTime = "", studio = "";
+    let rating = "", genre = "", director = "", writer = "", inTheaters = "", streamDate = "", runTime = "", studio = "";
     
 	//Loop through list elements in the ul of movie details and assign values
-    for(var j = 1; j <= numMovieDetails; j++){
+    for(let j = 1; j <= numMovieDetails; j++){
 		
-        var movieDetail = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type("+j+")>div.meta-label.subtle").text().trim();
-		var movieValue = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type("+j+")>div.meta-value").text().trim();
+        let movieDetail = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type("+j+")>div.meta-label.subtle").text().trim();
+		let movieValue = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type("+j+")>div.meta-value").text().trim();
 		movieDetail = movieDetail.replace(/(\r\n|\n|\r)/gm, "");
 		movieValue = movieValue.replace(/(\r\n|\n|\r)/gm, "");
 		movieDetail = movieDetail.trim();
@@ -121,19 +121,19 @@ for(var i = 0; i < 5; i++){
 	}
 	
 	//Cast Panel
-	var castMembers = "";
-	var castList = [];
+	let castMembers = "";
+	let castList = [];
 	
 	//get number of cast members to loop through
-	var numOfCastMembers = $(myData).find("#movie-cast > div > div > div.cast-item.media.inlineBlock").length;
+	let numOfCastMembers = $(myData).find("#movie-cast > div > div > div.cast-item.media.inlineBlock").length;
 	
 	//showing that correct number of cast members are retrieved
 	//console.log(numOfCastMembers);
 	
 	//begin cast member scraping
-	for(var k = 1; k <= numOfCastMembers; k++){
+	for(let k = 1; k <= numOfCastMembers; k++){
 		
-		var curCastMember = $(myData).find("div.cast-item.media.inlineBlock:nth-of-type("+k+")>div.media-body>a>span").text().trim();
+		let curCastMember = $(myData).find("div.cast-item.media.inlineBlock:nth-of-type("+k+")>div.media-body>a>span").text().trim();
 		
 		if(k != numOfCastMembers){
 			castMembers += curCastMember + ", ";
