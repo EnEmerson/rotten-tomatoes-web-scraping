@@ -70,7 +70,7 @@ for(var i = 0; i < 5; i++){
     var rating = "", genre = "", director = "", writer = "", inTheaters = "", streamDate = "", runTime = "", studio = "";
     
 	//Loop through list elements in the ul of movie details and assign values
-    for(var j = 0; j <= numMovieDetails; j++){
+    for(var j = 1; j <= numMovieDetails; j++){
 		
         var movieDetail = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type("+j+")>div.meta-label.subtle").text().trim();
 		var movieValue = $(myData).find("ul.content-meta.info>li.meta-row.clearfix:nth-of-type("+j+")>div.meta-value").text().trim();
@@ -121,17 +121,44 @@ for(var i = 0; i < 5; i++){
 	}
 	
 	//Cast Panel
+	var castMembers = "";
+	var castList = [];
 	
+	//get number of cast members to loop through
+	var numOfCastMembers = $(myData).find("#movie-cast > div > div > div.cast-item.media.inlineBlock").length;
 	
+	//showing that correct number of cast members are retrieved
+	//console.log(numOfCastMembers);
+	
+	//begin cast member scraping
+	for(var k = 1; k <= numOfCastMembers; k++){
+		
+		var curCastMember = $(myData).find("div.cast-item.media.inlineBlock:nth-of-type("+k+")>div.media-body>a>span").text().trim();
+		
+		if(k != numOfCastMembers){
+			castMembers += curCastMember + ", ";
+		}
+		else{
+			castMembers += curCastMember;
+		}
+		castList.push(curCastMember);
+		
+	}
+	
+	//showing what cast members were added
+	//console.table(castList);
+	//console.log(castMembers);
 	
 	
 	//adding everything to the lineResult which will be tabled at the end.
-	lineResult = [
+	lineResult = [ /*
 	//Main Panel
 		title + "*", concensus+ "*", tomatoScore + "*", numOfCritics + "*", audienceScore + "*", userRatings + "*",
 	//Movie Info Panel
 		synopsis + "*", rating + "*", genre + "*", director + "*", writer + "*", inTheaters + "*", streamDate + "*", runTime + "*", studio + "*",
-		
+	*///Cast Panel
+		castMembers + "*",
+	
 		"^"
 	];
 	arrResult.push(lineResult);
