@@ -1,22 +1,22 @@
 //web scraping project for CIS 3360, rotten tomatoes opening week page.
 //Baxter Irwin and En Emerson
 (() => {
-	let numOfMovies = $('div.mb-movie').length
+	
+let numOfMovies = $('div.mb-movie')
 let movieLinks = []
 let myData
-let lineResult = []
 let arrResult = []
 
 //shows how many movies are on the opening week page
-//console.log(numOfMovies.toString()) 
+//console.table(numOfMovies) 
 
 //getting the urls from the movie panels
-for(let i = 0; i < numOfMovies; i++){
-
-    let curLink = $('div.mb-movie>div.movie_info')[i].firstElementChild.href
+$.each(numOfMovies, function(movieNum){
+	
+	let curLink = $('div.mb-movie>div.movie_info')[movieNum].firstElementChild.href
     movieLinks.push(curLink)
 	
-}
+})
 
 //showing what links were added.
 //console.table(movieLinks)
@@ -32,10 +32,12 @@ function getURL(url){
     }).responseText
 }
 
-//function to make finding and fomratting data with jQuery slightly easier
+//function to make finding and formatting data with jQuery slightly easier
 function find(selector){
 	
-	return $(myData).find(selector).text().trim();
+	let data = $(myData).find(selector).text().trim()
+	data = data.replace(/(\r\n|\n|\r)/gm, '')
+	return data
 	
 }
 
@@ -64,98 +66,70 @@ for(let i = 0; i < 5; i++){
 			Runtime : 'No runtime',
 			Studio : 'No studio',
 		//Cast Members Panel
-			Cast_Members : [],
+			Cast_Members : 'No cast members',
 		//News Panel
-			News_Articles : [],
+			News_Articles : 'No news articles',
 		//Critic Reviews Panel
-			Reviews : []
+			Reviews : 'No reviews'
 	}
-	
-	//Get number of movie details from movie info panel
-	let numMovieDetails = $(myData).find('div.panel-body.content_body>ul.content-meta.info>li.meta-row.clearfix').length
-	
-	//testing if the correct number of details is retrieved
-	//console.log(movieDetails)
 
 	//Main Panel
-	let title, concensus, numOfCritics, userRatings, tomatoScore, audienceScore
 	
-	title = find('h1.mop-ratings-wrap__title--top')
-	concensus = $(myData).find('p.mop-ratings-wrap__text.mop-ratings-wrap__text--concensus').text().trim()
-	numOfCritics = $(myData).find('section.mop-ratings-wrap__row>div:nth-of-type(1)>div>small').text().trim()
-	userRatings = $(myData).find('section.mop-ratings-wrap__row>div:nth-of-type(2)>div>small').text().trim()
+	movieData.Title = find('h1.mop-ratings-wrap__title--top')
+	movieData.Concensus = find('p.mop-ratings-wrap__text.mop-ratings-wrap__text--concensus')
+	movieData.Critic_Reviews = find('section.mop-ratings-wrap__row>div:nth-of-type(1)>div>small')
+	movieData.Tomatometer = find('section.mop-ratings-wrap__row>div:nth-of-type(1)>h1>a>span.mop-ratings-wrap__percentage')
+	movieData.User_Reviews = find('section.mop-ratings-wrap__row>div:nth-of-type(2)>div>small')
+	movieData.Audience_Score = find('section.mop-ratings-wrap__row>div:nth-of-type(2)>h1>a>span.mop-ratings-wrap__percentage--audience')
 	
-	tomatoScore = $(myData).find('section.mop-ratings-wrap__row>div:nth-of-type(1)>h1>a>span.mop-ratings-wrap__percentage').text().trim()
-	if(tomatoScore === ''){
-		tomatoScore = 'No tomato score yet.'
-	}
-	
-	audienceScore = $(myData).find('section.mop-ratings-wrap__row>div:nth-of-type(2)>h1>a>span.mop-ratings-wrap__percentage').text().trim()
-	audienceScore = audienceScore.replace(/(\r\n|\n|\r)/gm, '')
-	audienceScore = audienceScore.replace('liked it', '').trim()
-	if(audienceScore === ''){
-		audienceScore = 'No audience score yet.'
-	}
+	if(!movieData.Audience_Score){movieData.Audience_Score = 'No audience score'}
 	
 	//Movie Info Panel
-	let synopsis = $(myData).find('div#movieSynopsis').text().trim()
-	
-    let rating = '', genre = '', director = '', writer = '', inTheaters = '', streamDate = '', runTime = '', studio = ''
-    
-	//Loop through list elements in the ul of movie details and assign values
-    for(let j = 1; j <= numMovieDetails; j++){
+	movieData.Synopsis = find('div#movieSynopsis')
 		
-        let movieDetail = $(myData).find('ul.content-meta.info>li.meta-row.clearfix:nth-of-type('+j+')>div.meta-label.subtle').text().trim()
-		let movieValue = $(myData).find('ul.content-meta.info>li.meta-row.clearfix:nth-of-type('+j+')>div.meta-value').text().trim()
-		movieDetail = movieDetail.replace(/(\r\n|\n|\r)/gm, '')
-		movieValue = movieValue.replace(/(\r\n|\n|\r)/gm, '')
-		movieDetail = movieDetail.trim()
-		movieValue = movieValue.trim()
+	//Get number of movie details from movie info panel
+	let numMovieDetails = $(myData).find('div.panel-body.content_body>ul.content-meta.info>li.meta-row.clearfix').length
+	//console.log(numMovieDetails)
+	
+	//Loop through list elements in the ul of movie details and assign values
+    for(let deet = 1; deet <= numMovieDetails; deet++){
+		
+		let movieDetail = find('ul.content-meta.info>li.meta-row.clearfix:nth-of-type('+deet+')>div.meta-label.subtle')
+		let movieValue = find('ul.content-meta.info>li.meta-row.clearfix:nth-of-type('+deet+')>div.meta-value')
         
         //console.log(movieDetail, movieValue)
         
         switch(true){
             case movieDetail.includes('Rating'):
-				rating = movieValue
+				movieData.Rating = movieValue
 				break
 			case movieDetail.includes('Genre'):
-				genre = movieValue
+				movieData.Genre = movieValue
 				break
 			case movieDetail.includes('Direct'):
-				director = movieValue
+				movieData.Director = movieValue
 				break
 			case movieDetail.includes('Written'):
-				writer = movieValue
+				movieData.Writer = movieValue
 				break
 			case movieDetail.includes('Theater'):
-				inTheaters = movieValue
+				movieData.Opening_Date = movieValue
 				break
             case movieDetail.includes('Streaming'):
-                streamDate = movieValue
+                movieData.Streaming_Date = movieValue
                 break
             case movieDetail.includes('Runtime'):
-                runTime = movieValue
+                movieData.Runtime = movieValue
                 break
             case movieDetail.includes('Studio'):
-                studio = movieValue
+                movieData.Studio = movieValue
                 break
         }
 		
-		if(!rating){rating = 'No rating yet.'}
-		if(!genre){genre = 'No genre assigned.'}
-		if(!director){director = 'No director found.'}
-		if(!writer){writer = 'No writer found.'}
-		if(!inTheaters){inTheaters = 'No release date found.'}
-		if(!streamDate){streamDate = 'No streaming date found.'}
-		if(!runTime){runTime = 'No runtime found.'}
-		if(!studio){studio = 'No production studio found.'}
-        
-    
 	}
-	
+
 	//Cast Panel
-	let castMembers = ''
-	let castList = []
+	let castMembers
 	
 	//get number of cast members to loop through
 	let numOfCastMembers = $(myData).find('#movie-cast > div > div > div.cast-item.media.inlineBlock').length
@@ -164,37 +138,28 @@ for(let i = 0; i < 5; i++){
 	//console.log(numOfCastMembers)
 	
 	//begin cast member scraping
-	for(let k = 1; k <= numOfCastMembers; k++){
+	for(mem = 1; mem <= numOfCastMembers; mem++){
 		
-		let curCastMember = $(myData).find('div.cast-item.media.inlineBlock:nth-of-type('+k+')>div.media-body>a>span').text().trim()
+		let curCastMember = find('div.cast-item.media.inlineBlock:nth-of-type('+mem+')>div.media-body>a>span')
 		
-		if(k != numOfCastMembers){
+		if(mem != numOfCastMembers){
 			castMembers += curCastMember + ', '
 		}
 		else{
 			castMembers += curCastMember
 		}
-		castList.push(curCastMember)
 		
 	}
+	if(castMembers.includes('undefined')){castMembers = castMembers.replace('undefined', '')}
+	movieData.Cast_Members = castMembers
 	
 	//showing what cast members were added
 	//console.table(castList)
 	//console.log(castMembers)
 	
 	
-	//adding everything to the lineResult which will be tabled at the end.
-	lineResult = [ /*
-	//Main Panel
-		title + '*', concensus+ '*', tomatoScore + '*', numOfCritics + '*', audienceScore + '*', userRatings + '*',
-	//Movie Info Panel
-		synopsis + '*', rating + '*', genre + '*', director + '*', writer + '*', inTheaters + '*', streamDate + '*', runTime + '*', studio + '*',
-	*///Cast Panel
-		castMembers + '*',
-	
-		'^'
-	]
-	arrResult.push(lineResult)
+	//adding everything to the display array which will be tabled at the end.
+	arrResult.push(movieData)
 
 }
 console.table(arrResult)
