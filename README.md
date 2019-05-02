@@ -44,7 +44,7 @@ Below are the requirements for the script.
 
 ### From the CAST section:
 
-* List of cast members
+* ~~List of cast members~~
 
 ### From the NEWS AND INTERVIEWS section:
 
