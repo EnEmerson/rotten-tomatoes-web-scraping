@@ -37,7 +37,7 @@ function find(selector){
 	
 	let data = $(myData).find(selector).text().trim()
 	data = data.replace(/(\r\n|\n|\r)/gm, '')
-	return data
+	return data + '*'
 	
 }
 
@@ -68,7 +68,8 @@ for(let i = 0; i < 5; i++){
 		//Cast Members Panel
 			Cast_Members : 'No cast members',
 		//Critic Reviews Panel
-			Reviews : 'No reviews'
+			Reviews : 'No reviews',
+			Delimiter: '^'
 	}
 
 	//Main Panel
@@ -80,7 +81,8 @@ for(let i = 0; i < 5; i++){
 	movieData.User_Reviews = find('section.mop-ratings-wrap__row>div:nth-of-type(2)>div>small')
 	movieData.Audience_Score = find('section.mop-ratings-wrap__row>div:nth-of-type(2)>h1>a>span.mop-ratings-wrap__percentage--audience')
 	
-	if(!movieData.Audience_Score){movieData.Audience_Score = 'No audience score'}
+	if(movieData.Audience_Score == '*'){movieData.Audience_Score = 'No audience score*'}
+	if(movieData.Tomatometer == '*'){movieData.Tomatometer = 'No tomato score*'}
 	
 	//Movie Info Panel
 	movieData.Synopsis = find('div#movieSynopsis')
