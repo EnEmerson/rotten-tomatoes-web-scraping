@@ -158,6 +158,14 @@ for(let i = 0; i < 5; i++){
 	//console.table(castList)
 	//console.log(castMembers)
 	
+	//Critic Reviews Section
+	let Reviews = []
+	let Review = {
+		Excerpt: '',
+		Critic_Name: '',
+		Review_Date: '',
+		Sponsor: ''
+	}
 	
 	//adding everything to the display array which will be tabled at the end.
 	arrResult.push(movieData)
