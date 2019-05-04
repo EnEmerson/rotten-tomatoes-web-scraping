@@ -67,8 +67,6 @@ for(let i = 0; i < 5; i++){
 			Studio : 'No studio',
 		//Cast Members Panel
 			Cast_Members : 'No cast members',
-		//News Panel
-			News_Articles : 'No news articles',
 		//Critic Reviews Panel
 			Reviews : 'No reviews'
 	}
