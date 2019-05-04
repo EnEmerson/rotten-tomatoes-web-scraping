@@ -41,8 +41,10 @@ function find(selector){
 	
 }
 
+
+let totalMovies = movieLinks.length
 //selecting information to get from each individual movie page
-//replace '5' with 'numOfMovies' when we finish the list of items to retrieve
+//replace '5' with 'totalMovies' when we finish the list of items to retrieve
 for(let i = 0; i < 5; i++){
 	
 	myData = getURL(movieLinks[i])
@@ -138,22 +140,23 @@ for(let i = 0; i < 5; i++){
 	//console.log(numOfCastMembers)
 	
 	//begin cast member scraping
-	for(mem = 1; mem <= numOfCastMembers; mem++){
+	if(numOfCastMembers >= 1){
 		
-		let curCastMember = $(myData).find('div.cast-item.media.inlineBlock:nth-of-type('+mem+')>div.media-body>a>span').text().trim()
-		curCastMember = curCastMember.replace(/(\r\n|\n|\r)/gm, '')
-		
-		if(mem != numOfCastMembers){
-			castMembers += curCastMember + ', '
+		for(mem = 1; mem <= numOfCastMembers; mem++){
+			
+			let curCastMember = $(myData).find('section#movie-cast>div.panel-body.content_body>div.castSection>div.cast-item.media.inlineBlock:nth-of-type('+mem+')>div.media-body>a>span').text().trim()
+			curCastMember = curCastMember.replace(/(\r\n|\n|\r)/gm, '')
+			
+			if(mem != numOfCastMembers){
+				castMembers += curCastMember + ', '
+			}
+			else{
+				castMembers += curCastMember + '*'
+			}
+			if(castMembers.includes('undefined')){castMembers = castMembers.replace('undefined', '')}
 		}
-		else{
-			castMembers += curCastMember + '*'
-		}
-		
+		movieData.Cast_Members = castMembers
 	}
-	if(castMembers.includes('undefined')){castMembers = castMembers.replace('undefined', '')}
-	movieData.Cast_Members = castMembers
-	
 	//showing what cast members were added
 	//console.table(castList)
 	//console.log(castMembers)
