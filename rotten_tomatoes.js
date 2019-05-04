@@ -49,26 +49,26 @@ for(let i = 0; i < 5; i++){
 	
 	let movieData = {
 		//Main Panel
-			Title : 'No title',
-			Concensus : 'No concensus',
-			Tomatometer : 'No tomato score',
-			Critic_Reviews : 'No critic reviews',
-			Audience_Score : 'No audience score',
-			User_Reviews : 'No user reviews',
+			Title : 'No title*',
+			Concensus : 'No concensus*',
+			Tomatometer : 'No tomato score*',
+			Critic_Reviews : 'No critic reviews*',
+			Audience_Score : 'No audience score*',
+			User_Reviews : 'No user reviews*',
 		//Movie Info Panel
-			Synopsis : 'No synopsis',
-			Rating : 'No rating',
-			Genre : 'No genre',
-			Director : 'No director',
-			Writer : 'No writer',
-			Opening_Date : 'No opening date',
-			Streaming_Date : 'No streaming date',
-			Runtime : 'No runtime',
-			Studio : 'No studio',
+			Synopsis : 'No synopsis*',
+			Rating : 'No rating*',
+			Genre : 'No genre*',
+			Director : 'No director*',
+			Writer : 'No writer*',
+			Opening_Date : 'No opening date*',
+			Streaming_Date : 'No streaming date*',
+			Runtime : 'No runtime*',
+			Studio : 'No studio*',
 		//Cast Members Panel
-			Cast_Members : 'No cast members',
+			Cast_Members : 'No cast members*',
 		//Critic Reviews Panel
-			Reviews : 'No reviews',
+			Reviews : 'No reviews*',
 			Delimiter: '^'
 	}
 
@@ -140,13 +140,14 @@ for(let i = 0; i < 5; i++){
 	//begin cast member scraping
 	for(mem = 1; mem <= numOfCastMembers; mem++){
 		
-		let curCastMember = find('div.cast-item.media.inlineBlock:nth-of-type('+mem+')>div.media-body>a>span')
+		let curCastMember = $(myData).find('div.cast-item.media.inlineBlock:nth-of-type('+mem+')>div.media-body>a>span').text().trim()
+		curCastMember = curCastMember.replace(/(\r\n|\n|\r)/gm, '')
 		
 		if(mem != numOfCastMembers){
 			castMembers += curCastMember + ', '
 		}
 		else{
-			castMembers += curCastMember
+			castMembers += curCastMember + '*'
 		}
 		
 	}
