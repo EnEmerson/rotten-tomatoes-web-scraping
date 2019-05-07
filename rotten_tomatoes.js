@@ -50,6 +50,7 @@ for(let i = 0; i < 5; i++){
 	myData = getURL(movieLinks[i])
 	
 	let movieData = {
+			Asterisk:'*',
 		//Main Panel
 			Title : 'No title*',
 			Concensus : 'No concensus*',
