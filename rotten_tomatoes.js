@@ -34,9 +34,9 @@ function getURL(url){
 }
 
 //function to make finding and formatting data with jQuery slightly easier
-function find(selector){
+function find(linkData, selector){
 	
-	let data = $(myData).find(selector).text().trim()
+	let data = $(linkData).find(selector).text().trim()
 	data = data.replace(/(\r\n|\n|\r)/gm, '')
 	return data + '*'
 	
@@ -78,18 +78,18 @@ for(let i = 0; i < 5; i++){
 
 	//Main Panel
 	
-	movieData.Title = find('h1.mop-ratings-wrap__title--top')
-	movieData.Concensus = find('p.mop-ratings-wrap__text.mop-ratings-wrap__text--concensus')
-	movieData.Critic_Reviews = find('section.mop-ratings-wrap__row>div:nth-of-type(1)>div>small')
-	movieData.Tomatometer = find('section.mop-ratings-wrap__row>div:nth-of-type(1)>h1>a>span.mop-ratings-wrap__percentage')
-	movieData.User_Reviews = find('section.mop-ratings-wrap__row>div:nth-of-type(2)>div>small')
-	movieData.Audience_Score = find('section.mop-ratings-wrap__row>div:nth-of-type(2)>h1>a>span.mop-ratings-wrap__percentage--audience')
+	movieData.Title = find(myData, 'h1.mop-ratings-wrap__title--top')
+	movieData.Concensus = find(myData, 'p.mop-ratings-wrap__text.mop-ratings-wrap__text--concensus')
+	movieData.Critic_Reviews = find(myData, 'section.mop-ratings-wrap__row>div:nth-of-type(1)>div>small')
+	movieData.Tomatometer = find(myData, 'section.mop-ratings-wrap__row>div:nth-of-type(1)>h1>a>span.mop-ratings-wrap__percentage')
+	movieData.User_Reviews = find(myData, 'section.mop-ratings-wrap__row>div:nth-of-type(2)>div>small')
+	movieData.Audience_Score = find(myData, 'section.mop-ratings-wrap__row>div:nth-of-type(2)>h1>a>span.mop-ratings-wrap__percentage--audience')
 	
 	if(movieData.Audience_Score == '*'){movieData.Audience_Score = 'No audience score*'}
 	if(movieData.Tomatometer == '*'){movieData.Tomatometer = 'No tomato score*'}
 	
 	//Movie Info Panel
-	movieData.Synopsis = find('div#movieSynopsis')
+	movieData.Synopsis = find(myData, 'div#movieSynopsis')
 		
 	//Get number of movie details from movie info panel
 	let numMovieDetails = $(myData).find('div.panel-body.content_body>ul.content-meta.info>li.meta-row.clearfix').length
@@ -98,8 +98,8 @@ for(let i = 0; i < 5; i++){
 	//Loop through list elements in the ul of movie details and assign values
     for(let deet = 1; deet <= numMovieDetails; deet++){
 		
-		let movieDetail = find('ul.content-meta.info>li.meta-row.clearfix:nth-of-type('+deet+')>div.meta-label.subtle')
-		let movieValue = find('ul.content-meta.info>li.meta-row.clearfix:nth-of-type('+deet+')>div.meta-value')
+		let movieDetail = find(myData, 'ul.content-meta.info>li.meta-row.clearfix:nth-of-type('+deet+')>div.meta-label.subtle')
+		let movieValue = find(myData, 'ul.content-meta.info>li.meta-row.clearfix:nth-of-type('+deet+')>div.meta-value')
         
         //console.log(movieDetail, movieValue)
         
