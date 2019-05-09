@@ -6,6 +6,7 @@ let numOfMovies = $('div.mb-movie')
 let movieLinks = []
 let myData
 let arrResult = []
+let baseURL = 'https://www.rottentomatoes.com/'
 
 //shows how many movies are on the opening week page
 //console.table(numOfMovies) 
@@ -170,7 +171,11 @@ for(let i = 0; i < 5; i++){
 		Review_Date: '',
 		Sponsor: ''
 	}
-    
+	
+    let relativeLink = $(myData).find('div.view-all>a').attr('href')
+	let absoluteLink = baseLink + relativeLink
+	
+	console.log(absoluteLink)
     Review.Excerpt = find('div.the_review')
     Review.Critic_Name = find('a.unstyled.bold.articleLink')
     Review.Review_Date = find('div.review_date.subtle.small')
