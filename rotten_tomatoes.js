@@ -46,7 +46,7 @@ function find(linkData, selector){
 let totalMovies = movieLinks.length
 //selecting information to get from each individual movie page
 //replace '5' with 'totalMovies' when we finish the list of items to retrieve
-for(let i = 0; i < 5; i++){
+for(let i = 0; i < 1; i++){
 	
 	myData = getURL(movieLinks[i])
 	
@@ -164,26 +164,35 @@ for(let i = 0; i < 5; i++){
 	//console.log(castMembers)
 	
 	//Critic Reviews Section
-	let ReviewData
-    let Reviews = []
-	let Review = {
-		Excerpt: '',
-		Critic_Name: '',
-		Review_Date: '',
-		Sponsor: ''
+	let reviewData
+    let reviews = []
+	let review = {
+		Asterisk: '*',
+		Excerpt: 'No excerpt found*',
+		Critic_Name: 'No critic name found*',
+		Review_Date: 'No review date found*',
+		Sponsor: 'No sponsor found*',
+		Delimiter: '^'
 	}
 	
     let relativeLink = $(myData).find('div.view-all>a').attr('href')
 	let absoluteLink = baseLink + relativeLink
-    ReviewData = getURL(absoluteLink)
-	
+    reviewData = getURL(absoluteLink)
 	console.log(absoluteLink)
-    Review.Excerpt = find(ReviewData, 'div.the_review')
-    Review.Critic_Name = find(ReviewData, 'a.unstyled.bold.articleLink')
-    Review.Review_Date = find(ReviewData, 'div.review_date.subtle.small')
-    Review.Sponsor = find(ReviewData, 'em.subtle')
-    
-    console.log(Review)
+	
+	let reviewsPerPage = $(reviewData).find('div.row.review_table_row').length
+	console.log(reviewsPerPage)
+	
+	for(let curReview = 1; curReview <= reviewsPerPage; curReview++){
+		
+		review.Excerpt = find(reviewData, 'div.review_table>div:nth-child('+curReview+')>div>div>div.review_desc>div.the_review')
+		review.Critic_Name = find(reviewData, 'div.review_table>div:nth-child('+curReview+')>div.col-xs-8>div.col-sm-13.col-xs-24.col-sm-pull-4.critic_name>a.unstyled.bold.articleLink')
+		review.Review_Date = find(reviewData, 'div.review_table>div:nth-child('+curReview+')>div>div>div.review_date.subtle.small')
+		review.Sponsor = find(reviewData, 'div.review_table>div:nth-child('+curReview+')>div>div.critic_name>a>em.subtle')
+		reviews.push(review)
+	}
+	
+	console.table(reviews)
         	
 	//adding everything to the display array which will be tabled at the end.
 	arrResult.push(movieData)
