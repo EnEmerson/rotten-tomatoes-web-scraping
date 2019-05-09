@@ -6,7 +6,7 @@ let numOfMovies = $('div.mb-movie')
 let movieLinks = []
 let myData
 let arrResult = []
-let baseURL = 'https://www.rottentomatoes.com/'
+let baseLink = 'https://www.rottentomatoes.com'
 
 //shows how many movies are on the opening week page
 //console.table(numOfMovies) 
