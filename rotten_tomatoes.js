@@ -164,7 +164,8 @@ for(let i = 0; i < 5; i++){
 	//console.log(castMembers)
 	
 	//Critic Reviews Section
-	let Reviews = []
+	let ReviewData
+    let Reviews = []
 	let Review = {
 		Excerpt: '',
 		Critic_Name: '',
@@ -174,13 +175,16 @@ for(let i = 0; i < 5; i++){
 	
     let relativeLink = $(myData).find('div.view-all>a').attr('href')
 	let absoluteLink = baseLink + relativeLink
+    ReviewData = getURL(absoluteLink)
 	
 	console.log(absoluteLink)
-    Review.Excerpt = find('div.the_review')
-    Review.Critic_Name = find('a.unstyled.bold.articleLink')
-    Review.Review_Date = find('div.review_date.subtle.small')
-    Review.Sponsor = find('em.subtle')
-	
+    Review.Excerpt = find(ReviewData, 'div.the_review')
+    Review.Critic_Name = find(ReviewData, 'a.unstyled.bold.articleLink')
+    Review.Review_Date = find(ReviewData, 'div.review_date.subtle.small')
+    Review.Sponsor = find(ReviewData, 'em.subtle')
+    
+    console.log(Review)
+        	
 	//adding everything to the display array which will be tabled at the end.
 	arrResult.push(movieData)
 
