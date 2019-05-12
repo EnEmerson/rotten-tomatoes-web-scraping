@@ -35,7 +35,7 @@ function find(linkData, selector){
 
 let totalMovies = movieLinks.length
 
-for(let i = 0; i < 1; i++){
+for(let i = 0; i < totalMovies; i++){
 	
 	myData = getURL(movieLinks[i])
 	
@@ -64,7 +64,6 @@ for(let i = 0; i < 1; i++){
 	}
 
 	//Main Panel
-	
 	movieData.Title = find(myData, 'h1.mop-ratings-wrap__title--top')
 	movieData.Concensus = find(myData, 'p.mop-ratings-wrap__text.mop-ratings-wrap__text--concensus')
 	movieData.Critic_Reviews = find(myData, 'section.mop-ratings-wrap__row>div:nth-of-type(1)>div>small')
@@ -146,7 +145,6 @@ for(let i = 0; i < 1; i++){
 	let numPagesText = $(reviewData).find('span.pageInfo').text().trim()
 	let maxPagesArr = numPagesText.split(' ')
 	let maxPages = maxPagesArr[maxPagesArr.length-1]
-
 	
 	for(let curPage = 1; curPage <= maxPages; curPage++ ){
 		
