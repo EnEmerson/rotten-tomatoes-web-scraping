@@ -12,17 +12,16 @@ $.each(numOfMovies, function(movieNum){
 	
 	let curLink = $('div.mb-movie>div.movie_info')[movieNum].firstElementChild.href
     movieLinks.push(curLink)
-	
 })
 
 function getURL(url){
-
-    return $.ajax({
-        type: 'GET',
-        url: url,
-        cache: false,
-        async: false
-    }).responseText
+	
+	return $.ajax({
+		type: 'GET',
+		url: url,
+		cache: false,
+		async: false
+	}).responseText	
 }
 
 function find(linkData, selector){
@@ -30,11 +29,9 @@ function find(linkData, selector){
 	let data = $(linkData).find(selector).text().trim()
 	data = data.replace(/(\r\n|\n|\r)/gm, '')
 	return data + '*'
-	
 }
 
 let totalMovies = movieLinks.length
-
 for(let i = 0; i < totalMovies; i++){
 	
 	myData = getURL(movieLinks[i])
@@ -80,8 +77,8 @@ for(let i = 0; i < totalMovies; i++){
 
     for(let deet = 1; deet <= numMovieDetails; deet++){
 		
-		let movieDetail = find(myData, 'ul.content-meta.info>li.meta-row.clearfix:nth-of-type('+deet+')>div.meta-label.subtle')
-		let movieValue = find(myData, 'ul.content-meta.info>li.meta-row.clearfix:nth-of-type('+deet+')>div.meta-value')
+		let movieDetail = find(myData, 'ul.content-meta.info>li.clearfix:nth-of-type('+deet+')>div.meta-label.subtle')
+		let movieValue = find(myData, 'ul.content-meta.info>li.clearfix:nth-of-type('+deet+')>div.meta-value')
 
         switch(true){
             case movieDetail.includes('Rating'):
@@ -114,13 +111,13 @@ for(let i = 0; i < totalMovies; i++){
 
 	//Cast Panel
 	let castMembers
-	let numOfCastMembers = $(myData).find('#movie-cast > div > div > div.cast-item.media.inlineBlock').length
+	let numOfCastMembers = $(myData).find('#movie-cast>div>div>div.inlineBlock').length
 
 	if(numOfCastMembers >= 1){
 		
 		for(mem = 1; mem <= numOfCastMembers; mem++){
 			
-			let curCastMember = $(myData).find('section#movie-cast>div.panel-body.content_body>div.castSection>div.cast-item.media.inlineBlock:nth-of-type('+mem+')>div.media-body>a>span').text().trim()
+			let curCastMember = $(myData).find('#movie-cast>div>div>div.inlineBlock:nth-of-type('+mem+')>div.media-body>a>span').text().trim()
 			curCastMember = curCastMember.replace(/(\r\n|\n|\r)/gm, '')
 			
 			if(mem != numOfCastMembers){
@@ -137,50 +134,51 @@ for(let i = 0; i < totalMovies; i++){
 	//Critic Reviews Section
 	let reviewData
     let reviews = []
-	
-    let relativeLink = $(myData).find('div.view-all>a').attr('href')
+
+	let relativeLink = $(myData).find('div.view-all>a').attr('href')
 	let absoluteLink = baseLink + relativeLink
-    reviewData = getURL(absoluteLink)
+	reviewData = getURL(absoluteLink)
 	
-	let numPagesText = $(reviewData).find('span.pageInfo').text().trim()
-	let maxPagesArr = numPagesText.split(' ')
-	let maxPages = maxPagesArr[maxPagesArr.length-1]
-	
-	for(let curPage = 1; curPage <= maxPages; curPage++ ){
-		
-        try{
-            let nextPageData = getURL(absoluteLink + '?page=' + curPage)
-            let reviewsPerPage = $(nextPageData).find('div.row.review_table_row').length
-		
-            for(let curReview = 1; curReview <= reviewsPerPage; curReview++){
-			
-			     let review = {
-				    Asterisk: '*',
-				    Excerpt: 'No excerpt found*',
-				    Critic_Name: 'No critic name found*',
-				    Review_Date: 'No review date found*',
-				    Sponsor: 'No sponsor found*',
-				    Delimiter: '^'
-			     }
-			
-			review.Excerpt = find(nextPageData, 'div.content>div.review_table>div.row:nth-child('+curReview+')>div.review_container>div.review_area>div.review_desc>div.the_review')
-			review.Critic_Name = find(nextPageData, 'div.content>div.review_table>div.row:nth-child('+curReview+')>div.col-xs-8>div.critic_name>a.articleLink')
-			review.Review_Date = find(nextPageData, 'div.content>div.review_table>div.row:nth-child('+curReview+')>div.review_container>div.review_area>div.review_date')
-			review.Sponsor = find(nextPageData, 'div.content>div.review_table>div.row:nth-child('+curReview+')>div.col-xs-8>div.critic_name>a>em.subtle')
-			reviews.push(review)
-            }
-		}
-        catch(err){
-            let review = {
+	if(!reviewData){
+		let review = {
 				Asterisk: '*',
 				Excerpt: 'No excerpt found*',
 				Critic_Name: 'No critic name found*',
 				Review_Date: 'No review date found*',
 				Sponsor: 'No sponsor found*',
 				Delimiter: '^'
+			 }
+			 reviews.push(review)
+	}
+	else{
+		let numPagesText = $(reviewData).find('span.pageInfo').text().trim()
+		let maxPagesArr = numPagesText.split(' ')
+		let maxPages = maxPagesArr[maxPagesArr.length-1]
+		
+		for(let curPage = 1; curPage <= maxPages; curPage++ ){
+
+			let nextPageData = getURL(absoluteLink + '?page=' + curPage)
+			let reviewsPerPage = $(nextPageData).find('div.row.review_table_row').length
+		
+			for(let curReview = 1; curReview <= reviewsPerPage; curReview++){
+			
+				 let review = {
+					Asterisk: '*',
+					Excerpt: 'No excerpt found*',
+					Critic_Name: 'No critic name found*',
+					Review_Date: 'No review date found*',
+					Sponsor: 'No sponsor found*',
+					Delimiter: '^'
+				 }
+			
+				review.Excerpt = find(nextPageData, 'div.content>div.review_table>div.row:nth-child('+curReview+')>div>div>div>div.the_review')
+				review.Critic_Name = find(nextPageData, 'div.content>div.review_table>div.row:nth-child('+curReview+')>div>div>a.articleLink')
+				review.Review_Date = find(nextPageData, 'div.content>div.review_table>div.row:nth-child('+curReview+')>div>div>div.review_date')
+				review.Sponsor = find(nextPageData, 'div.content>div.review_table>div.row:nth-child('+curReview+')>div>div.critic_name>a>em.subtle')
+				reviews.push(review)
 			}
-            reviews.push(review)
-        }
+		}
+	
 	}
 	
     console.table(reviews)
