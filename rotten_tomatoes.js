@@ -60,8 +60,6 @@ for(let i = 0; i < 1; i++){
 			Studio : 'No studio*',
 		//Cast Members Panel
 			Cast_Members : 'No cast members*',
-		//Critic Reviews Panel
-			Reviews : 'No reviews*',
 			Delimiter: '^'
 	}
 
