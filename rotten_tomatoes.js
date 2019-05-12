@@ -145,10 +145,8 @@ for(let i = 0; i < 1; i++){
     let relativeLink = $(myData).find('div.view-all>a').attr('href')
 	let absoluteLink = baseLink + relativeLink
     reviewData = getURL(absoluteLink)
-	console.log(absoluteLink)
 	
 	let reviewsPerPage = $(reviewData).find('div.row.review_table_row').length
-	console.log(reviewsPerPage)
 	
 	for(let curReview = 1; curReview <= reviewsPerPage; curReview++){
         
@@ -166,7 +164,6 @@ for(let i = 0; i < 1; i++){
 		review.Review_Date = find(reviewData, 'div.content>div.review_table>div.row:nth-child('+curReview+')>div.review_container>div.review_area>div.review_date')
 		review.Sponsor = find(reviewData, 'div.content>div.review_table>div.row:nth-child('+curReview+')>div.col-xs-8>div.critic_name>a>em.subtle')
 		reviews.push(review)
-		console.log(review)
         
 	}
 	
