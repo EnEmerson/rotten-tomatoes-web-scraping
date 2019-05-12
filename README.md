@@ -15,6 +15,18 @@ Website: [Rotten Tomatoes "Opening This Week"](https://www.rottentomatoes.com/br
 * Press enter and wait a bit for the AJAX calls to complete.
 * The tabled data should appear on the console with all of the information scraped from the movies.
 
+
+### How to format tabled data in Excel
+
+* Copy the entire table
+* Paste the data into a row in Excel
+* Use the 'Text-to-Columns' function in the Data ribbon to separate the rows (use '^' as delimiter first)
+* Copy the new, delimited row and paste it into a new row using 'Paste > Special > Transpose'
+* Once again, use the 'Text-to-Columns' function on this new column to separate the rows
+
+**The data should now be nicely separated and easy to read in Excel.**
+
+
 Below are the requirements for the script.
 
 ---
