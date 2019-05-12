@@ -33,32 +33,32 @@ Below are the requirements for the script.
 
 ## For each movie on the opening week page we need to get these things....
 
-### From the Main Panel:
+### From the Main Panel: - complete
 
-* ~~Title of the movie~~
-* ~~Critic's consensus~~
-* ~~Tomatometer score~~
-* ~~Number of reviews~~
-* ~~Audience score~~
-* ~~User rating~~
+* Title of the movie
+* Critic's consensus
+* Tomatometer score
+* Number of reviews
+* Audience score
+* User rating
 
-### From the MOVIE INFO section:
+### From the MOVIE INFO section: - complete
 
-* ~~Background/synopsis~~
-* ~~Rating (G/PG/PG-13/R)~~
-* ~~Genre~~
-* ~~Director~~
-* ~~Writer~~
-* ~~Opening date~~
-* ~~Streaming date~~
-* ~~Runtime~~
-* ~~Studio~~
+* Background/synopsis
+* Rating (G/PG/PG-13/R)
+* Genre
+* Director
+* Writer
+* Opening date
+* Streaming date
+* Runtime
+* Studio
 
-### From the CAST section:
+### From the CAST section: - complete
 
-* ~~List of cast members~~
+* List of cast members
 
-### From the CRITIC REVIEWS section:
+### From the CRITIC REVIEWS section: - complete
 
 * Go into "View All Critic Reviews" link and retrieve the info for each review
 	* Small excerpt of the review 
