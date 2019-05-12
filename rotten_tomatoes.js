@@ -185,11 +185,12 @@ for(let i = 0; i < 1; i++){
 	
 	for(let curReview = 1; curReview <= reviewsPerPage; curReview++){
 		
-		review.Excerpt = find(reviewData, 'div.review_table>div:nth-child('+curReview+')>div>div>div.review_desc>div.the_review')
-		review.Critic_Name = find(reviewData, 'div.review_table>div:nth-child('+curReview+')>div.col-xs-8>div.col-sm-13.col-xs-24.col-sm-pull-4.critic_name>a.unstyled.bold.articleLink')
-		review.Review_Date = find(reviewData, 'div.review_table>div:nth-child('+curReview+')>div>div>div.review_date.subtle.small')
-		review.Sponsor = find(reviewData, 'div.review_table>div:nth-child('+curReview+')>div>div.critic_name>a>em.subtle')
+		review.Excerpt = find(reviewData, 'div.content>div.review_table>div.row:nth-child('+curReview+')>div.review_container>div.review_area>div.review_desc>div.the_review')
+		review.Critic_Name = find(reviewData, 'div.content>div.review_table>div.row:nth-child('+curReview+')>div.col-xs-8>div.critic_name>a.articleLink')
+		review.Review_Date = find(reviewData, 'div.content>div.review_table>div.row:nth-child('+curReview+')>div.review_container>div.review_area>div.review_date')
+		review.Sponsor = find(reviewData, 'div.content>div.review_table>div.row:nth-child('+curReview+')>div.col-xs-8>div.critic_name>a>em.subtle')
 		reviews.push(review)
+		console.log(review)
 	}
 	
 	console.table(reviews)
