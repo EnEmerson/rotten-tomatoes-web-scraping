@@ -145,19 +145,16 @@ for(let i = 0; i < 1; i++){
 	let absoluteLink = baseLink + relativeLink
     reviewData = getURL(absoluteLink)
 	
-    let nextPageRelLink
-	let nextReviewPageLink
 	let numPagesText = $(reviewData).find('span.pageInfo').text().trim()
-	console.log(numPagesText)
 	let maxPagesArr = numPagesText.split(' ')
-	console.log(maxPagesArr)
 	let maxPages = maxPagesArr[maxPagesArr.length-1]
-	console.log(maxPages)
+
 	
-	//for(let nextPageNum = 1; nextPageNum <= maxPages; nextPageNum++ ){
+	for(let curPage = 1; curPage <= maxPages; curPage++ ){
 		
-		let reviewsPerPage = $(reviewData).find('div.row.review_table_row').length
-	
+		let nextPageData = getURL(absoluteLink + '?page=' + curPage)
+		let reviewsPerPage = $(nextPageData).find('div.row.review_table_row').length
+		
 		for(let curReview = 1; curReview <= reviewsPerPage; curReview++){
 			
 			let review = {
@@ -169,15 +166,14 @@ for(let i = 0; i < 1; i++){
 				Delimiter: '^'
 			}
 			
-			review.Excerpt = find(reviewData, 'div.content>div.review_table>div.row:nth-child('+curReview+')>div.review_container>div.review_area>div.review_desc>div.the_review')
-			review.Critic_Name = find(reviewData, 'div.content>div.review_table>div.row:nth-child('+curReview+')>div.col-xs-8>div.critic_name>a.articleLink')
-			review.Review_Date = find(reviewData, 'div.content>div.review_table>div.row:nth-child('+curReview+')>div.review_container>div.review_area>div.review_date')
-			review.Sponsor = find(reviewData, 'div.content>div.review_table>div.row:nth-child('+curReview+')>div.col-xs-8>div.critic_name>a>em.subtle')
+			review.Excerpt = find(nextPageData, 'div.content>div.review_table>div.row:nth-child('+curReview+')>div.review_container>div.review_area>div.review_desc>div.the_review')
+			review.Critic_Name = find(nextPageData, 'div.content>div.review_table>div.row:nth-child('+curReview+')>div.col-xs-8>div.critic_name>a.articleLink')
+			review.Review_Date = find(nextPageData, 'div.content>div.review_table>div.row:nth-child('+curReview+')>div.review_container>div.review_area>div.review_date')
+			review.Sponsor = find(nextPageData, 'div.content>div.review_table>div.row:nth-child('+curReview+')>div.col-xs-8>div.critic_name>a>em.subtle')
 			reviews.push(review)
 			
 		}
-	//}
-
+	}
 	
     console.table(reviews)
 	arrResult.push(movieData)
