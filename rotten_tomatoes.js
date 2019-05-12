@@ -141,10 +141,11 @@ for(let i = 0; i < 1; i++){
 	let reviewData
     let reviews = []
 	
-	
     let relativeLink = $(myData).find('div.view-all>a').attr('href')
 	let absoluteLink = baseLink + relativeLink
     reviewData = getURL(absoluteLink)
+    let nextPageLink = $(reviewData).find('div#reviews>div.content>div:nth-child(4)>a:nth-child(2)').attr('href')
+    console.log(nextPageLink)
 	
 	let reviewsPerPage = $(reviewData).find('div.row.review_table_row').length
 	
