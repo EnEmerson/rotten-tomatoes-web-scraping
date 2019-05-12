@@ -166,14 +166,7 @@ for(let i = 0; i < 1; i++){
 	//Critic Reviews Section
 	let reviewData
     let reviews = []
-	let review = {
-		Asterisk: '*',
-		Excerpt: 'No excerpt found*',
-		Critic_Name: 'No critic name found*',
-		Review_Date: 'No review date found*',
-		Sponsor: 'No sponsor found*',
-		Delimiter: '^'
-	}
+	
 	
     let relativeLink = $(myData).find('div.view-all>a').attr('href')
 	let absoluteLink = baseLink + relativeLink
@@ -184,6 +177,15 @@ for(let i = 0; i < 1; i++){
 	console.log(reviewsPerPage)
 	
 	for(let curReview = 1; curReview <= reviewsPerPage; curReview++){
+        
+        let review = {
+		Asterisk: '*',
+		Excerpt: 'No excerpt found*',
+		Critic_Name: 'No critic name found*',
+		Review_Date: 'No review date found*',
+		Sponsor: 'No sponsor found*',
+		Delimiter: '^'
+	}
 		
 		review.Excerpt = find(reviewData, 'div.content>div.review_table>div.row:nth-child('+curReview+')>div.review_container>div.review_area>div.review_desc>div.the_review')
 		review.Critic_Name = find(reviewData, 'div.content>div.review_table>div.row:nth-child('+curReview+')>div.col-xs-8>div.critic_name>a.articleLink')
@@ -191,9 +193,11 @@ for(let i = 0; i < 1; i++){
 		review.Sponsor = find(reviewData, 'div.content>div.review_table>div.row:nth-child('+curReview+')>div.col-xs-8>div.critic_name>a>em.subtle')
 		reviews.push(review)
 		console.log(review)
+        
 	}
 	
-	console.table(reviews)
+    console.table(reviews)
+	
         	
 	//adding everything to the display array which will be tabled at the end.
 	arrResult.push(movieData)
