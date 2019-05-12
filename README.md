@@ -22,7 +22,7 @@ Website: [Rotten Tomatoes "Opening This Week"](https://www.rottentomatoes.com/br
 * Paste the data into a row in Excel
 * Use the 'Text-to-Columns' function in the Data ribbon to separate the rows (use '^' as delimiter first)
 * Copy the new, delimited row and paste it into a new row using 'Paste > Special > Transpose'
-* Once again, use the 'Text-to-Columns' function on this new column to separate the rows
+* Once again, use the 'Text-to-Columns' function on this new column to separate the rows (use '\*' as delimiter)
 
 **The data should now be nicely separated and easy to read in Excel.**
 
