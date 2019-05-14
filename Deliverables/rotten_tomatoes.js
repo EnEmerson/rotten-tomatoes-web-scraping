@@ -1,7 +1,6 @@
 //web scraping project for CIS 3360, rotten tomatoes opening week page.
 //Baxter Irwin and En Emerson
 (() => {
-	
 let numOfMovies = $('div.mb-movie')
 let movieLinks = []
 let myData
@@ -35,7 +34,6 @@ let totalMovies = movieLinks.length
 for(let i = 0; i < totalMovies; i++){
 	
 	myData = getURL(movieLinks[i])
-	
 	let movieData = {
 			Asterisk:'*',
 		//Main Panel
@@ -74,7 +72,6 @@ for(let i = 0; i < totalMovies; i++){
 	//Movie Info Panel
 	movieData.Synopsis = find(myData, 'div#movieSynopsis')
 	let numMovieDetails = $(myData).find('div.panel-body.content_body>ul.content-meta.info>li.meta-row.clearfix').length
-
     for(let deet = 1; deet <= numMovieDetails; deet++){
 		
 		let movieDetail = find(myData, 'ul.content-meta.info>li.clearfix:nth-of-type('+deet+')>div.meta-label.subtle')
@@ -112,7 +109,6 @@ for(let i = 0; i < totalMovies; i++){
 	//Cast Panel
 	let castMembers
 	let numOfCastMembers = $(myData).find('#movie-cast>div>div>div.inlineBlock').length
-
 	if(numOfCastMembers >= 1){
 		
 		for(mem = 1; mem <= numOfCastMembers; mem++){
@@ -134,7 +130,6 @@ for(let i = 0; i < totalMovies; i++){
 	//Critic Reviews Section
 	let reviewData
     let reviews = []
-
 	let relativeLink = $(myData).find('div.view-all>a').attr('href')
 	let absoluteLink = baseLink + relativeLink
 	reviewData = getURL(absoluteLink)
@@ -170,7 +165,6 @@ for(let i = 0; i < totalMovies; i++){
 					Sponsor: 'No sponsor found*',
 					Delimiter: '^'
 				 }
-			
 				review.Excerpt = find(nextPageData, 'div.content>div.review_table>div.row:nth-child('+curReview+')>div>div>div>div.the_review')
 				review.Critic_Name = find(nextPageData, 'div.content>div.review_table>div.row:nth-child('+curReview+')>div>div>a.articleLink')
 				review.Review_Date = find(nextPageData, 'div.content>div.review_table>div.row:nth-child('+curReview+')>div>div>div.review_date')
@@ -178,12 +172,9 @@ for(let i = 0; i < totalMovies; i++){
 				reviews.push(review)
 			}
 		}
-	
 	}
-	
     console.table(reviews)
 	arrResult.push(movieData)
-
 }
 console.table(arrResult)
 })()
